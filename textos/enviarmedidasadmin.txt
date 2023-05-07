@@ -1,0 +1,91 @@
+<?php
+    session_start();
+    // error_reporting(0);
+    $sesion = $_SESSION["usuario"];
+    if(!$sesion){
+        echo "Usted no tiene permisos";
+        echo "<br><a href='index.php'>volver</a>";
+        die();
+    }
+?>
+<?php include 'template/headeradmin.php';
+    include("conexion.php");
+    $con = conectar();
+?>
+<section>
+            <center>
+                <form method='post'>
+                    <br>
+                    <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
+                    <strong>Exito!</strong> Se han enviado las medidas.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div>
+                        <h3>
+                            Medidas
+                        </h3>
+                        <br>
+                       <label><input id='ancho' name='ancho' type="" placeholder="Ancho"><h1>X</h1>
+                              <input id='largo' name='largo' type="" placeholder="Largo"></label>
+                    </div>
+                    </br>
+                    <div>
+                        <h3>
+                            Color
+                        </h3>
+                        <br>
+                        <select id='color' name='color'>
+                            <option disabled selected>Seleccione un color</option>
+                            <option value="titanio">Titanio</option>
+                            <option value="madera">Madera</option>
+                            <option value="mate">Mate</option>
+                            <option value="blanco">Blanco</option>
+                            <option value="negro">Negro</option>
+                        </select>
+                        <div>
+                            <br>
+                            <div>
+                                <h3>
+                                    Material
+                                </h3>
+                                <br>
+                                <label>
+                                  <input value='pvc' id='pvc' name='material' type="radio">PVC<label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                  <input value='aluminio'  id='aluminio' name='material' type="radio">ALUMINIO</label><br></label><br>
+                            </div>
+                            </br>
+                            <br>
+                            <div>
+                                <h3>
+                                    Ventana
+                                </h3>
+                                <br>
+                                <label>
+                                  <input value='termopanel' id='termopanel' name='ventana' type="radio">TermoPanel<label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                  <input value='vidrionormal' id='vidrionormal' name='ventana' type="radio">Vidrio normal</label><br></label><br>
+                            </div>
+                            </br>
+                            <div>
+                                <button id='enviar' name='enviar' type='submit'> Enviar </button>
+                            </div>
+                        </div>
+                </form>
+            </center>
+        </section>
+
+        <?php
+        if(isset($_POST["enviar"])){
+            $ancho=$_POST["ancho"];
+            $largo=$_POST["largo"];
+            $color=$_POST["color"];
+            $material=$_POST["material"];
+            $ventana=$_POST["ventana"];
+
+            $insert = "INSERT INTO medidas (Ancho, Largo, Color, Material, Ventana) VALUES ($ancho, $largo, '$color', '$material', '$ventana')";
+
+            $con->query($insert);
+        }
+
+        ?>
+
+        <?php include 'template/footer.php'?>

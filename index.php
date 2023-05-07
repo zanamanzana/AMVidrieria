@@ -21,6 +21,10 @@
 
 <?php include 'template/header.php'?>
 
+
+<header>
+  <h1>Hola mundo</h1>
+</header>
     <!-- slider  -->
     <section class=" slider_section position-relative">
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
